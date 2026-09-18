@@ -1,5 +1,3 @@
-Save this as `DAY_01_README.md`:
-
 ```md
 # Day 1 — C++ Foundations, Big-O, Arrays, and Project Setup
 
