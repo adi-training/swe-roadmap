@@ -1,47 +1,86 @@
-Below is Day 1’s learning, revision, note-taking, and interview-prep block. 
+Save this as `DAY_01_README.md`:
 
-## Day 1 learning block — 75–90 minutes
+```md
+# Day 1 — C++ Foundations, Big-O, Arrays, and Project Setup
 
-### 1. Understand the C++ program lifecycle
+**Time target:** 2 hours  
+**Optional stretch work:** 30–60 minutes  
+**Week:** 1  
+**Goal:** Understand the C++ compile/build/run workflow, learn basic Big-O and array patterns, solve core DSA problems, and initialize a professional C++ project.
 
-Learn this sequence:
+---
+
+## Day 1 outcomes
+
+By the end of Day 1, I should be able to:
+
+- Explain source code → compilation → linking → executable → running program.
+- Create and build a C++ project using CMake.
+- Use Git to create a project checkpoint.
+- Explain O(1), O(n), O(log n), and O(n²).
+- Solve simple one-pass array problems.
+- Explain the hash-map complement approach for Two Sum.
+- Run a basic command-line application with an optional file-path argument.
+
+---
+
+# Recommended 2-hour plan
+
+| Time | Activity |
+|---:|---|
+| 20 min | C++ program lifecycle and Big-O notes |
+| 30 min | Project setup: Git, CMake, first build |
+| 40 min | DSA: Find Largest Element and Two Sum |
+| 15 min | Explain solutions aloud and record complexity |
+| 15 min | Git commit, notes, and end-of-day review |
+
+---
+
+# Part 1 — Core C++ concepts
+
+## C++ program lifecycle
 
 ```text
 Source code (.cpp)
-    ↓ compiler
+    ↓
+Compiler
+    ↓
 Object file (.o)
-    ↓ linker
+    ↓
+Linker
+    ↓
 Executable
-    ↓ operating system loads it
-Running program
+    ↓
+Operating system runs the program
 ```
 
-Key ideas:
+## Important definitions
 
-- A `.cpp` file contains C++ source code.
-- The compiler checks syntax and converts source code into object code.
-- The linker combines object files and libraries into an executable.
-- A compile error happens before an executable is produced.
-- A linker error happens when code refers to a function/symbol that was declared but not found.
-- A runtime error happens after the program starts.
+| Term | Meaning |
+|---|---|
+| Source code | Human-readable C++ code in `.cpp` files |
+| Compiler | Converts C++ source code into object code |
+| Linker | Combines object files and libraries into an executable |
+| Executable | The program that can be run |
+| Compile error | Syntax/type issue found before an executable is built |
+| Linker error | Referenced symbol/function implementation cannot be found |
+| Runtime error | Failure after the program begins running |
 
-Useful command model:
+## Basic compile command
 
 ```bash
-g++ -std=c++20 -Wall -Wextra -Werror src/main.cpp -o analyzer
+g++ -std=c++20 -Wall -Wextra src/main.cpp -o analyzer
 ./analyzer
 ```
 
-Meaning:
+| Flag | Meaning |
+|---|---|
+| `-std=c++20` | Use the C++20 language standard |
+| `-Wall` | Enable common compiler warnings |
+| `-Wextra` | Enable extra warnings |
+| `-o analyzer` | Name the executable `analyzer` |
 
-- `-std=c++20`: use modern C++ rules.
-- `-Wall -Wextra`: enable useful warnings.
-- `-Werror`: treat warnings as errors; useful for disciplined learning.
-- `-o analyzer`: name the executable `analyzer`.
-
-### 2. Revise essential C++ syntax
-
-Focus only on these today:
+## Basic C++ syntax
 
 ```cpp
 #include <iostream>
@@ -53,269 +92,452 @@ int main() {
     bool isLearning = true;
 
     std::cout << name << '\n';
+
     return 0;
 }
 ```
 
-Memorize:
+## Key reminders
 
-- C++ execution starts from `int main()`.
-- `#include` brings in declarations from headers.
-- `std::` means the symbol belongs to the standard library namespace.
+- C++ starts execution from `main()`.
+- `#include` gives access to declarations from headers.
 - `std::cout` prints output.
-- `'\n'` is generally preferred over `std::endl` for normal output because it does not force a flush.
-- Local variables exist only within their scope.
-- Prefer descriptive names: `sensorCount`, not `x`.
+- `std::string` stores text.
+- `'\n'` moves output to a new line.
+- Prefer meaningful names such as `sensorCount` instead of `x`.
+- A function should do one clear job.
 
-### 3. Functions and parameters
+---
 
-Study this example:
+# Part 2 — Big-O notes
 
-```cpp
-int add(int firstNumber, int secondNumber) {
-    return firstNumber + secondNumber;
-}
-```
-
-A function has:
-
-- Return type: `int`
-- Name: `add`
-- Parameters: `firstNumber`, `secondNumber`
-- Function body
-- Return value
-
-Know the difference:
-
-```cpp
-void printGreeting() {
-    std::cout << "Hello\n";
-}
-```
-
-`void` means the function returns no value.
-
-For today, remember this rule:
-
-> A function should do one clear job.
-
-Examples of good functions for your future analyzer:
-
-- `readFile`
-- `parseLine`
-- `countEvents`
-- `printSummary`
-
-### 4. Big-O fundamentals
-
-Big-O describes how runtime or memory use grows as input size `n` grows.
-
-Memorize this priority order:
+## Complexity order
 
 ```text
 O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(2ⁿ) < O(n!)
 ```
 
-High-yield examples:
-
-| Code pattern | Time complexity | Why |
+| Pattern | Complexity | Example |
 |---|---:|---|
-| Access `values[0]` | O(1) | Direct memory access |
-| One loop through `n` values | O(n) | Visits each value once |
-| Two nested loops through `n` values | O(n²) | Roughly `n × n` operations |
-| Repeatedly divide search space in half | O(log n) | Binary search |
-| Sort an array | O(n log n) | Typical comparison sort |
-| Hash-map lookup, average case | O(1) | Hash directly locates bucket |
-| Copy a vector of `n` values | O(n) | Every element is copied |
+| Direct array access | O(1) | `numbers[3]` |
+| Single loop | O(n) | Scan every array element |
+| Binary search | O(log n) | Halve a sorted search space |
+| Sorting | O(n log n) | `std::sort` |
+| Nested loops | O(n²) | Compare every pair |
+| Hash-map lookup | O(1) average | Find key in `unordered_map` |
 
-Ignore constants when discussing Big-O:
+## Time and space complexity
 
 ```text
-O(3n + 20) → O(n)
-O(n² + n) → O(n²)
+Time complexity:
+How execution time grows as input size grows.
+
+Space complexity:
+How extra memory use grows as input size grows.
 ```
-
-Important distinction:
-
-- **Time complexity:** How execution time grows.
-- **Space complexity:** How additional memory use grows.
 
 Example:
 
 ```text
-Loop through an array and calculate a sum:
+Find largest value in an array:
 Time: O(n)
 Extra space: O(1)
 
-Create another array of the same size:
-Time: O(n)
+Store every array value in a hash set:
+Time: O(n) average
 Extra space: O(n)
 ```
 
-## Notes to add to `notes/day-01.md`
+## Edge-case checklist
 
-Copy and complete this:
+Before coding an array problem, ask:
 
-```md
-# Day 1 — C++ Basics and Big-O
+- Is the array empty?
+- Does it have only one element?
+- Can values be negative?
+- Can values repeat?
+- Is an answer guaranteed?
+- Could integer values overflow?
+- Do I need to return a value, an index, or a boolean?
 
-## C++ program lifecycle
+---
 
-Source code → compiler → object file → linker → executable → running process.
+# Part 3 — DSA concepts
 
-- Compile error:
-- Linker error:
-- Runtime error:
+## One-pass array pattern
 
-## C++ syntax reminders
+```text
+1. Initialize an answer.
+2. Visit each array element once.
+3. Update the answer when needed.
+4. Return the answer.
+```
 
-- `main()`:
-- `#include`:
-- `std::`:
-- `const`:
-- `'\n'` versus `std::endl`:
+Example for finding the largest number:
 
-## Functions
+```text
+Input: [8, 12, 3, 19, 5]
 
-A function should have one clear responsibility.
+largest = 8
+12 is larger → largest = 12
+3 is not larger
+19 is larger → largest = 19
+5 is not larger
 
-- Return type:
-- Parameters:
-- `void`:
-- Why I should avoid putting all logic in `main()`:
+Answer: 19
+```
 
-## Big-O
+## Hash-map complement pattern
 
-| Pattern | Complexity | Example |
-|---|---:|---|
-| Direct access | O(1) | |
-| One loop | O(n) | |
-| Binary search | O(log n) | |
-| Sorting | O(n log n) | |
-| Nested loops | O(n²) | |
+Use this when a problem asks for two values satisfying a target condition.
 
-## My own explanations
+```text
+For each current number:
+    needed = target - currentNumber
 
-- Explain O(n) in one sentence:
-- Explain O(n²) in one sentence:
-- Explain why binary search is O(log n):
-- Explain time versus space complexity:
+    If needed was seen before:
+        return the earlier index and current index
 
-## Questions / confusion
+    Otherwise:
+        store current number and index
+```
+
+---
+
+# Part 4 — Core DSA practice
+
+## 1. Find Largest Element
+
+```text
+Input:  [8, 12, 3, 19, 5]
+Output: 19
+```
+
+Expected approach:
+
+```text
+Set largest to the first value.
+Scan remaining values.
+Replace largest whenever a larger value appears.
+```
+
+Complexity:
+
+```text
+Time: O(n)
+Space: O(1)
+```
+
+Reference implementation:
+
+```cpp
+#include <stdexcept>
+#include <vector>
+
+int findLargest(const std::vector<int>& numbers) {
+    if (numbers.empty()) {
+        throw std::invalid_argument("Array cannot be empty.");
+    }
+
+    int largest = numbers[0];
+
+    for (int index = 1; index < static_cast<int>(numbers.size()); ++index) {
+        if (numbers[index] > largest) {
+            largest = numbers[index];
+        }
+    }
+
+    return largest;
+}
+```
+
+Test cases:
+
+```cpp
+{8, 12, 3, 19, 5} // 19
+{-8, -3, -12}    // -3
+{42}              // 42
+{5, 5, 5}        // 5
+```
+
+## 2. Two Sum
+
+```text
+Input:  numbers = [2, 7, 11, 15], target = 9
+Output: [0, 1]
+```
+
+Reference implementation:
+
+```cpp
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
+std::pair<int, int> twoSum(
+    const std::vector<int>& numbers,
+    int target
+) {
+    std::unordered_map<int, int> indexByNumber;
+
+    for (int index = 0; index < static_cast<int>(numbers.size()); ++index) {
+        int currentNumber = numbers[index];
+        int neededNumber = target - currentNumber;
+
+        if (indexByNumber.contains(neededNumber)) {
+            return {indexByNumber[neededNumber], index};
+        }
+
+        indexByNumber[currentNumber] = index;
+    }
+
+    return {-1, -1};
+}
+```
+
+Complexity:
+
+```text
+Time: O(n) average
+Space: O(n)
+```
+
+Important:
+
+```text
+Check whether the complement exists before adding the current number.
+This prevents using the same array element twice.
+```
+
+Test cases:
+
+```cpp
+{2, 7, 11, 15}, 9      // [0, 1]
+{3, 2, 4}, 6           // [1, 2]
+{3, 3}, 6              // [0, 1]
+{-1, -2, -3, -4}, -6   // [1, 3]
+```
+
+## Optional DSA practice
+
+| Problem | Expected complexity |
+|---|---|
+| Count even numbers | O(n) time, O(1) space |
+| Find first target occurrence | O(n) time, O(1) space |
+| Running sum | O(n) time, O(n) output space |
+| Contains duplicate with hash set | O(n) average time, O(n) space |
+
+---
+
+# Part 5 — C++ practice programs
+
+Complete these gradually; they are not all mandatory today.
+
+| Program | Skills practiced |
+|---|---|
+| Profile printer | Input/output, strings, variables |
+| Two-number calculator | Functions, arithmetic, division-by-zero validation |
+| Temperature converter | Functions and formulas |
+| Even/odd checker | Conditions and modulo |
+| Maximum of three numbers | Conditions and comparisons |
+| Sum from 1 to N | Loops and O(n) |
+| Multiplication table | Loops and output formatting |
+| Operation counter | Demonstrate O(n) versus O(n²) |
+
+---
+
+# Part 6 — Project build: C++ Sensor Log Analyzer
+
+## Target structure
+
+```text
+cpp-log-analyzer/
+├── CMakeLists.txt
+├── README.md
+├── .gitignore
+├── src/
+│   └── main.cpp
+├── include/
+├── tests/
+└── data/
+```
+
+## Create the project
+
+```bash
+cd /home/guru/Documents/ChatGPT/Roadmap2028
+mkdir -p cpp-log-analyzer/{src,include,tests,data}
+cd cpp-log-analyzer
+git init
+```
+
+## `CMakeLists.txt`
+
+```cmake
+cmake_minimum_required(VERSION 3.20)
+
+project(LogAnalyzer VERSION 0.1.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+add_executable(log_analyzer
+    src/main.cpp
+)
+
+target_compile_options(log_analyzer PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic
+)
+```
+
+## `src/main.cpp`
+
+```cpp
+#include <iostream>
+#include <string>
+
+void printWelcomeMessage() {
+    std::cout << "Sensor Log Analyzer\n";
+    std::cout << "Version: 0.1.0\n";
+}
+
+int main(int argc, char* argv[]) {
+    printWelcomeMessage();
+
+    if (argc < 2) {
+        std::cout << "Usage: ./log_analyzer <log-file-path>\n";
+        return 0;
+    }
+
+    std::string filePath = argv[1];
+
+    std::cout << "Input file: " << filePath << '\n';
+    std::cout << "File parsing will be added in Day 2.\n";
+
+    return 0;
+}
+```
+
+## `.gitignore`
+
+```gitignore
+build/
+compile_commands.json
+*.o
+*.out
+```
+
+## Build and run
+
+```bash
+cmake -S . -B build
+cmake --build build
+./build/log_analyzer
+```
+
+Expected output:
+
+```text
+Sensor Log Analyzer
+Version: 0.1.0
+Usage: ./log_analyzer <log-file-path>
+```
+
+Run with a path:
+
+```bash
+./build/log_analyzer data/sample.log
+```
+
+Expected output:
+
+```text
+Sensor Log Analyzer
+Version: 0.1.0
+Input file: data/sample.log
+File parsing will be added in Day 2.
+```
+
+## Create the first Git checkpoint
+
+```bash
+git add .
+git commit -m "Initialize C++ log analyzer project"
+git log --oneline
+```
+
+---
+
+# Part 7 — Interview questions
+
+## What is Big-O notation?
+
+Big-O describes how an algorithm’s time or memory usage grows as the input size grows. It focuses on the dominant growth rate rather than exact machine-specific runtime.
+
+## What is the difference between compilation and linking?
+
+Compilation converts individual C++ source files into object files and checks syntax/types. Linking combines object files and libraries into the final executable.
+
+## Why is finding the largest array element O(n)?
+
+In the worst case, every element must be inspected before confirming which value is largest.
+
+## Why not initialize the maximum to zero?
+
+It fails when every value is negative. For example, `[-8, -3, -12]` would incorrectly return `0`.
+
+## Why is Two Sum with a hash map O(n)?
+
+Each element is processed once, and hash-map lookup/insertion is O(1) on average. Therefore, total average time is O(n).
+
+---
+
+# Part 8 — Day 1 completion checklist
+
+## Mandatory
+
+- [ ] I understand source code → compiler → linker → executable.
+- [ ] I can explain O(1), O(n), O(log n), and O(n²).
+- [ ] I built and ran the CMake project.
+- [ ] I created the initial Git commit.
+- [ ] I solved Find Largest Element.
+- [ ] I solved or fully understood Two Sum.
+- [ ] I wrote Day 1 notes.
+- [ ] I can explain both DSA solutions aloud.
+
+## Optional
+
+- [ ] I completed Count Even Numbers.
+- [ ] I completed First Occurrence.
+- [ ] I completed Running Sum.
+- [ ] I completed Contains Duplicate.
+- [ ] I completed one C++ practice program.
+- [ ] I recorded a short demo of the CLI project.
+
+---
+
+# Day 1 retrospective
+
+## What I learned
+
+- 
+
+## DSA mistakes or confusing concepts
+
+- 
+
+## C++ or command-line errors I encountered
+
+- 
+
+## Concepts to revise
+
+- 
+
+## What I will do differently tomorrow
 
 - 
 ```
-
-## Hands-on concept drills — with answers
-
-### Drill 1: Identify the complexity
-
-```cpp
-for (int i = 0; i < n; ++i) {
-    std::cout << values[i];
-}
-```
-
-Answer: **O(n) time, O(1) extra space**.  
-The loop runs once for every element, and no extra structure growing with `n` is created.
-
-### Drill 2: Identify the complexity
-
-```cpp
-for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < n; ++j) {
-        // constant work
-    }
-}
-```
-
-Answer: **O(n²) time, O(1) extra space**.  
-For every value of `i`, the inner loop runs `n` times.
-
-### Drill 3: Simplify Big-O
-
-```text
-5n + 100
-n² + 3n + 10
-2^n + n²
-```
-
-Answers:
-
-```text
-O(n)
-O(n²)
-O(2ⁿ)
-```
-
-### Drill 4: Classify the failure
-
-| Situation | Answer |
-|---|---|
-| Missing semicolon | Compile error |
-| Calling a declared function that has no definition linked into the program | Linker error |
-| Dividing by zero after the program starts | Runtime error |
-| Typing `std:cout` instead of `std::cout` | Compile error |
-| Opening a file path that does not exist | Runtime/application error to handle gracefully |
-
-### Drill 5: Explain the tradeoff
-
-Question: Why is a hash map often faster than searching an array for a value?
-
-Answer: An unsorted array requires checking values one by one, so lookup is typically O(n). A hash map computes a bucket location from the key, so lookup is O(1) on average. The tradeoff is extra memory and possible worst-case collisions.
-
-## Day 1 interview questions and model answers
-
-### What is the difference between compilation and linking?
-
-Compilation translates individual C++ source files into object files and checks C++ syntax and types. Linking combines object files and required libraries to create the final executable. A missing implementation for a declared function is usually a linker error.
-
-### What is Big-O notation?
-
-Big-O describes how an algorithm’s resource usage grows as input size increases. It helps compare scalability by focusing on the dominant growth rate rather than machine-specific timing or constant factors.
-
-### What is the complexity of accessing an element in an array?
-
-Accessing an array element by index is O(1) because its memory location can be calculated directly from the base address and index.
-
-### Why can nested loops be O(n), not always O(n²)?
-
-Nested loops are O(n²) only when both loops independently scale through approximately `n` iterations. If the total number of inner-loop executions across the entire program is bounded by `n`, the complexity can still be O(n).
-
-### What is the difference between time and space complexity?
-
-Time complexity estimates how runtime grows with input size. Space complexity estimates how much additional memory an algorithm uses as input size grows.
-
-### Why do we ignore constants in Big-O?
-
-Big-O focuses on growth for large inputs. Hardware and implementation can change constant factors, but the dominant growth pattern—such as linear versus quadratic—determines scalability.
-
-## Day 1 completion criteria
-
-- [ ] I can explain source code → compilation → linking → execution.
-- [ ] I can create and explain a simple C++ function.
-- [ ] I can identify O(1), O(n), O(log n), and O(n²) patterns.
-- [ ] I completed the concept drills without looking at answers.
-- [ ] I completed the Day 1 notes file.
-- [ ] I can answer the six interview questions aloud in my own words.
-- [ ] Create and build `cpp-log-analyzer` with CMake.
-- [ ] Run it with and without `data/sample.log`.
-- [ ] Make the initial Git commit.
-- [ ] Complete Day 1 notes on C++, compilation/linking, and Big-O.
-- [ ] Solve **Find Largest Element** independently.
-- [ ] Solve **Two Sum** independently after reviewing the guided version.
-- [ ] Explain aloud why Find Largest is `O(n)` and Two Sum is `O(n)` average time.
-- [ ] Write down one mistake or confusing point in your error log.
-```
-Optional, if time remains:
-
-- Count Even Numbers.
-- First Occurrence.
-- Running Sum.
-- One C++ basics program, preferably the calculator or operation counter.
-
-Your final Day 1 self-introduction should be:
-
-> I initialized a C++ project with CMake and Git, learned the compile-build-run workflow, practiced array traversal and Big-O analysis, and implemented one-pass array and hash-map solutions.
-
-Once the core checklist is complete, move to Day 2.
