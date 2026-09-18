@@ -1,4 +1,4 @@
-Absolutely. Think of this as setting up an empty but well-organized workshop before building the actual analyzer.
+Think of this as setting up an empty but well-organized workshop before building the actual analyzer.
 
 You are not building the full application today. You are creating a C++ project that can reliably compile and run.
 
@@ -31,8 +31,6 @@ cpp-log-analyzer/
 ├── tests/             ← Automated tests later
 └── data/              ← Sample log files later
 ```
-
-You can create these folders through VS Code’s file explorer, or in a terminal.
 
 On Linux/macOS:
 
@@ -275,4 +273,3 @@ You are done when you understand this sentence:
 
 > I wrote C++ source code in `src/main.cpp`, CMake used `CMakeLists.txt` to compile it into `build/log_analyzer`, and I ran that executable with an optional command-line file path.
 
-If you tell me your operating system and whether you use VS Code, I can give you the exact click-by-click setup instructions next.
