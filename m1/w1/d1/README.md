@@ -298,4 +298,24 @@ Big-O focuses on growth for large inputs. Hardware and implementation can change
 - [ ] I completed the concept drills without looking at answers.
 - [ ] I completed the Day 1 notes file.
 - [ ] I can answer the six interview questions aloud in my own words.
+- [ ] Create and build `cpp-log-analyzer` with CMake.
+- [ ] Run it with and without `data/sample.log`.
+- [ ] Make the initial Git commit.
+- [ ] Complete Day 1 notes on C++, compilation/linking, and Big-O.
+- [ ] Solve **Find Largest Element** independently.
+- [ ] Solve **Two Sum** independently after reviewing the guided version.
+- [ ] Explain aloud why Find Largest is `O(n)` and Two Sum is `O(n)` average time.
+- [ ] Write down one mistake or confusing point in your error log.
 ```
+Optional, if time remains:
+
+- Count Even Numbers.
+- First Occurrence.
+- Running Sum.
+- One C++ basics program, preferably the calculator or operation counter.
+
+Your final Day 1 self-introduction should be:
+
+> I initialized a C++ project with CMake and Git, learned the compile-build-run workflow, practiced array traversal and Big-O analysis, and implemented one-pass array and hash-map solutions.
+
+Once the core checklist is complete, move to Day 2.
