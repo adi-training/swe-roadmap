@@ -1,237 +1,472 @@
-```md
-# Day 1 — C++ Foundations, Big-O, Arrays, and Project Setup
+# Day 1 — C++ Foundations, DSA Foundations, and First Project Setup
 
 **Time target:** 2 hours  
-**Optional stretch work:** 30–60 minutes  
-**Week:** 1  
-**Goal:** Understand the C++ compile/build/run workflow, learn basic Big-O and array patterns, solve core DSA problems, and initialize a professional C++ project.
+**Order:** complete the sections in order. Do only the “core lab” in each section today; stretch work is optional.
+
+## What success looks like today
+
+At the end of Day 1, you will be able to say:
+
+> I can write and run a small C++ program, explain the difference between O(n) and O(n²), solve a basic array problem, and build a C++ command-line project with CMake and Git.
+
+## Suggested schedule
+
+| Section | Time | Required result |
+|---|---:|---|
+| 1. C++ language | 40 minutes | Build and run one small C++ program |
+| 2. DSA | 45 minutes | Solve Find Largest Element without copying the answer |
+| 3. Project | 35 minutes | Build and run the Log Analyzer project; make one Git commit |
+
+Do not try to memorize every sentence. Read a small part, type the lab code yourself, run it, then answer the review questions aloud.
 
 ---
 
-## Day 1 outcomes
+# 1. C++ Language
 
-By the end of Day 1, I should be able to:
+## 1.1 What is C++?
 
-- Explain source code → compilation → linking → executable → running program.
-- Create and build a C++ project using CMake.
-- Use Git to create a project checkpoint.
-- Explain O(1), O(n), O(log n), and O(n²).
-- Solve simple one-pass array problems.
-- Explain the hash-map complement approach for Two Sum.
-- Run a basic command-line application with an optional file-path argument.
-
----
-
-# Recommended 2-hour plan
-
-| Time | Activity |
-|---:|---|
-| 20 min | C++ program lifecycle and Big-O notes |
-| 30 min | Project setup: Git, CMake, first build |
-| 40 min | DSA: Find Largest Element and Two Sum |
-| 15 min | Explain solutions aloud and record complexity |
-| 15 min | Git commit, notes, and end-of-day review |
-
----
-
-# Part 1 — Core C++ concepts
-
-## C++ program lifecycle
+C++ is a programming language. You write instructions in a text file, and a **compiler** turns those instructions into a program your computer can run.
 
 ```text
-Source code (.cpp)
-    ↓
-Compiler
-    ↓
-Object file (.o)
-    ↓
-Linker
-    ↓
-Executable
-    ↓
-Operating system runs the program
+You write code in a .cpp file
+        ↓
+The compiler checks and translates it
+        ↓
+An executable program is created
+        ↓
+You run that program in the terminal
 ```
 
-## Important definitions
+For example:
 
-| Term | Meaning |
+```text
+Source file:     hello.cpp
+Executable file: hello
+Run command:     ./hello
+```
+
+## 1.2 Compile, link, and run
+
+These words appear often in C++.
+
+| Word | Beginner explanation |
 |---|---|
-| Source code | Human-readable C++ code in `.cpp` files |
-| Compiler | Converts C++ source code into object code |
-| Linker | Combines object files and libraries into an executable |
-| Executable | The program that can be run |
-| Compile error | Syntax/type issue found before an executable is built |
-| Linker error | Referenced symbol/function implementation cannot be found |
-| Runtime error | Failure after the program begins running |
+| Source code | The C++ text you write, normally in a `.cpp` file |
+| Compiler | A program that checks and translates your C++ source code |
+| Object file | An intermediate compiled file; you do not need to create it manually today |
+| Linker | Combines compiled code and libraries into a runnable program |
+| Executable | The final program you can run |
+| Compile error | The compiler found invalid C++ before the program was created |
+| Linker error | The program refers to code that was declared but not found |
+| Runtime error | A problem that happens after the program begins running |
 
-## Basic compile command
+The command below compiles a file named `cpp_basics.cpp`:
 
 ```bash
-g++ -std=c++20 -Wall -Wextra src/main.cpp -o analyzer
-./analyzer
+g++ -std=c++20 -Wall -Wextra cpp_basics.cpp -o cpp_basics
 ```
 
-| Flag | Meaning |
-|---|---|
-| `-std=c++20` | Use the C++20 language standard |
-| `-Wall` | Enable common compiler warnings |
-| `-Wextra` | Enable extra warnings |
-| `-o analyzer` | Name the executable `analyzer` |
+Meaning:
 
-## Basic C++ syntax
+| Part | Meaning |
+|---|---|
+| `g++` | The GNU C++ compiler |
+| `-std=c++20` | Use modern C++20 language rules |
+| `-Wall -Wextra` | Ask the compiler to show useful warnings |
+| `cpp_basics.cpp` | The source file to compile |
+| `-o cpp_basics` | Name the output executable `cpp_basics` |
+
+Run the resulting program:
+
+```bash
+./cpp_basics
+```
+
+## 1.3 A minimal C++ program
+
+```cpp
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, C++!\n";
+    return 0;
+}
+```
+
+Line-by-line:
+
+| Code | Meaning |
+|---|---|
+| `#include <iostream>` | Makes input/output tools such as `std::cout` available |
+| `int main()` | The function where the program starts |
+| `{` and `}` | Mark the beginning and end of a block of code |
+| `std::cout` | Prints text to the terminal |
+| `"Hello, C++!\n"` | A string of text; `\n` starts a new line |
+| `return 0;` | Ends the program successfully |
+
+## 1.4 Variables and basic types
+
+A variable stores a value with a name.
+
+```cpp
+int year = 3;
+double temperature = 24.5;
+bool isReady = true;
+char grade = 'A';
+std::string name = "Guru";
+```
+
+| Type | Stores | Example |
+|---|---|---|
+| `int` | Whole numbers | `42`, `-7` |
+| `double` | Decimal numbers | `3.14`, `24.5` |
+| `bool` | `true` or `false` | `isReady = true` |
+| `char` | One character | `'A'` |
+| `std::string` | Text | `"robotics"` |
+
+To use `std::string`, include:
+
+```cpp
+#include <string>
+```
+
+## 1.5 Input and output
+
+Print output with `std::cout`:
+
+```cpp
+std::cout << "Enter your name: ";
+```
+
+Read input with `std::cin`:
+
+```cpp
+std::string name;
+std::cin >> name;
+```
+
+If the user enters `Guru`, the variable `name` now stores `"Guru"`.
+
+## 1.6 Conditions and loops
+
+Use an `if` statement to choose between actions.
+
+```cpp
+if (year >= 3) {
+    std::cout << "You can begin interview preparation.\n";
+} else {
+    std::cout << "Keep building fundamentals.\n";
+}
+```
+
+Use a `for` loop to repeat work.
+
+```cpp
+for (int number = 1; number <= 3; ++number) {
+    std::cout << number << '\n';
+}
+```
+
+Output:
+
+```text
+1
+2
+3
+```
+
+## 1.7 Functions
+
+A function is a named piece of code that does one job.
+
+```cpp
+int add(int firstNumber, int secondNumber) {
+    return firstNumber + secondNumber;
+}
+```
+
+| Part | Meaning |
+|---|---|
+| `int` before `add` | The function returns an integer |
+| `add` | The function name |
+| `firstNumber`, `secondNumber` | Inputs to the function, called parameters |
+| `return` | Sends a result back to whoever called the function |
+
+Call the function:
+
+```cpp
+int result = add(4, 5);
+```
+
+Now `result` is `9`.
+
+## Core lab — build and run a C++ profile program
+
+### Step 1: create a practice folder
+
+Run these commands in a terminal:
+
+```bash
+cd /home/guru/Documents/ChatGPT/Roadmap2028
+mkdir -p day1-practice
+cd day1-practice
+nano cpp_basics.cpp
+```
+
+`nano` opens a simple terminal text editor.
+
+### Step 2: type or paste this code
 
 ```cpp
 #include <iostream>
 #include <string>
 
-int main() {
-    std::string name = "Guru";
-    int problemsSolved = 0;
-    bool isLearning = true;
+void printIntroduction(const std::string& name, int year) {
+    std::cout << "Hello, " << name << "!\n";
+    std::cout << "You are in year " << year << ".\n";
+}
 
-    std::cout << name << '\n';
+int main() {
+    std::string name;
+    int year = 0;
+
+    std::cout << "Enter your name: ";
+    std::cin >> name;
+
+    std::cout << "Enter your year of study: ";
+    std::cin >> year;
+
+    printIntroduction(name, year);
+
+    if (year >= 3) {
+        std::cout << "You are ready to begin structured interview preparation.\n";
+    } else {
+        std::cout << "Build fundamentals steadily.\n";
+    }
 
     return 0;
 }
 ```
 
-## Key reminders
+Save in `nano` with `Ctrl + O`, press `Enter`, then exit with `Ctrl + X`.
 
-- C++ starts execution from `main()`.
-- `#include` gives access to declarations from headers.
-- `std::cout` prints output.
-- `std::string` stores text.
-- `'\n'` moves output to a new line.
-- Prefer meaningful names such as `sensorCount` instead of `x`.
-- A function should do one clear job.
+### Step 3: compile it
+
+```bash
+g++ -std=c++20 -Wall -Wextra cpp_basics.cpp -o cpp_basics
+```
+
+If the command returns to a blank prompt with no error text, compilation succeeded.
+
+### Step 4: run it
+
+```bash
+./cpp_basics
+```
+
+Example interaction:
+
+```text
+Enter your name: Guru
+Enter your year of study: 3
+Hello, Guru!
+You are in year 3.
+You are ready to begin structured interview preparation.
+```
+
+### Step 5: make two small changes yourself
+
+1. Change the message printed for a student in year 1 or 2.
+2. Add a `std::string branch` variable and print the branch name.
+
+Compile and run again after each change.
+
+## Section 1 review
+
+Answer these without looking above.
+
+1. What does the compiler do?
+2. What is the role of `main()`?
+3. What is the difference between `int` and `double`?
+4. What does `std::cin` do?
+5. What is a function parameter?
+6. What does a compile error mean?
+
+### Review answers
+
+1. The compiler checks and translates C++ source code into code that can become an executable.
+2. `main()` is the starting function of a C++ program.
+3. `int` stores whole numbers; `double` stores decimal values.
+4. `std::cin` reads input from the terminal.
+5. A parameter is an input a function receives.
+6. The compiler found invalid C++ syntax or types before creating a runnable program.
 
 ---
 
-# Part 2 — Big-O notes
+# 2. DSA — Arrays, One-Pass Thinking, and Big-O
 
-## Complexity order
+## 2.1 What is DSA?
+
+**Data Structures and Algorithms** means:
+
+| Term | Meaning |
+|---|---|
+| Data structure | A way to organize data, such as an array, stack, queue, tree, or hash map |
+| Algorithm | A step-by-step method for solving a problem |
+
+Today’s data structure is an **array**. In C++, interview problems usually use `std::vector<int>`, which behaves like a flexible array. We will study vectors more deeply on Day 2.
+
+## 2.2 Array basics
 
 ```text
-O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(2ⁿ) < O(n!)
+Index:  0   1   2   3   4
+Value:  8  12   3  19   5
 ```
 
-| Pattern | Complexity | Example |
+An index tells you a value’s position. Indexing starts at `0`.
+
+| Operation | Typical time complexity | Why |
 |---|---:|---|
-| Direct array access | O(1) | `numbers[3]` |
-| Single loop | O(n) | Scan every array element |
-| Binary search | O(log n) | Halve a sorted search space |
-| Sorting | O(n log n) | `std::sort` |
-| Nested loops | O(n²) | Compare every pair |
-| Hash-map lookup | O(1) average | Find key in `unordered_map` |
+| Read `numbers[2]` | O(1) | The location is known directly |
+| Change `numbers[2]` | O(1) | The location is known directly |
+| Visit all values | O(n) | Every value is inspected once |
+| Search an unsorted array | O(n) | The target could be anywhere |
 
-## Time and space complexity
+## 2.3 What is Big-O?
+
+Big-O describes how work grows as input size grows. It does not measure exact seconds; it describes the pattern of growth.
 
 ```text
-Time complexity:
-How execution time grows as input size grows.
-
-Space complexity:
-How extra memory use grows as input size grows.
+O(1)      constant work
+O(log n)  repeatedly halve the search space
+O(n)      visit each item once
+O(n²)     compare many pairs of items
 ```
 
-Example:
+Examples:
 
-```text
-Find largest value in an array:
-Time: O(n)
-Extra space: O(1)
+```cpp
+// O(1): one direct operation
+int firstValue = numbers[0];
 
-Store every array value in a hash set:
-Time: O(n) average
-Extra space: O(n)
+// O(n): one loop through n values
+for (int number : numbers) {
+    std::cout << number << '\n';
+}
+
+// O(n²): an inner loop runs for every outer-loop iteration
+for (int first = 0; first < n; ++first) {
+    for (int second = 0; second < n; ++second) {
+        // constant work
+    }
+}
 ```
 
-## Edge-case checklist
+## 2.4 The one-pass pattern
 
-Before coding an array problem, ask:
-
-- Is the array empty?
-- Does it have only one element?
-- Can values be negative?
-- Can values repeat?
-- Is an answer guaranteed?
-- Could integer values overflow?
-- Do I need to return a value, an index, or a boolean?
-
----
-
-# Part 3 — DSA concepts
-
-## One-pass array pattern
+Many beginner array problems have the same shape:
 
 ```text
-1. Initialize an answer.
-2. Visit each array element once.
+1. Start with a variable that stores the current answer.
+2. Scan every array value once.
 3. Update the answer when needed.
 4. Return the answer.
 ```
 
-Example for finding the largest number:
+For “find the largest value”:
 
 ```text
 Input: [8, 12, 3, 19, 5]
 
-largest = 8
-12 is larger → largest = 12
-3 is not larger
-19 is larger → largest = 19
-5 is not larger
+Start largest = 8
+Read 12 → largest = 12
+Read 3  → largest stays 12
+Read 19 → largest = 19
+Read 5  → largest stays 19
 
 Answer: 19
 ```
 
-## Hash-map complement pattern
+This is O(n) time because it examines every input value once. It uses O(1) extra space because it stores only one additional variable, `largest`.
 
-Use this when a problem asks for two values satisfying a target condition.
+## Core lab — Find Largest Element
 
-```text
-For each current number:
-    needed = target - currentNumber
+### Problem statement
 
-    If needed was seen before:
-        return the earlier index and current index
-
-    Otherwise:
-        store current number and index
-```
-
----
-
-# Part 4 — Core DSA practice
-
-## 1. Find Largest Element
+Write a function that returns the largest integer in a non-empty list.
 
 ```text
 Input:  [8, 12, 3, 19, 5]
 Output: 19
 ```
 
-Expected approach:
+### Before coding, answer these questions
 
-```text
-Set largest to the first value.
-Scan remaining values.
-Replace largest whenever a larger value appears.
+1. What variable will remember the best answer so far?  
+   `largest`
+2. What should its initial value be?  
+   The first array value.
+3. Why not initialize it to `0`?  
+   A list containing only negative numbers would fail.
+4. How many times must you inspect the input?  
+   Once.
+
+### Step 1: create the file
+
+From the `day1-practice` folder:
+
+```bash
+nano find_largest.cpp
 ```
 
-Complexity:
-
-```text
-Time: O(n)
-Space: O(1)
-```
-
-Reference implementation:
+### Step 2: first try — complete the missing lines yourself
 
 ```cpp
+#include <iostream>
 #include <stdexcept>
 #include <vector>
 
+int findLargest(const std::vector<int>& numbers) {
+    if (numbers.empty()) {
+        throw std::invalid_argument("Array cannot be empty.");
+    }
+
+    int largest = numbers[0];
+
+    for (int index = 1; index < static_cast<int>(numbers.size()); ++index) {
+        // If the current value is larger than largest,
+        // update largest.
+    }
+
+    return largest;
+}
+
+int main() {
+    std::vector<int> numbers = {8, 12, 3, 19, 5};
+
+    std::cout << "Largest: " << findLargest(numbers) << '\n';
+    return 0;
+}
+```
+
+### Step 3: compile and run
+
+```bash
+g++ -std=c++20 -Wall -Wextra find_largest.cpp -o find_largest
+./find_largest
+```
+
+Expected output:
+
+```text
+Largest: 19
+```
+
+### Reference solution
+
+Use this only after making an honest attempt:
+
+```cpp
 int findLargest(const std::vector<int>& numbers) {
     if (numbers.empty()) {
         throw std::invalid_argument("Array cannot be empty.");
@@ -249,127 +484,140 @@ int findLargest(const std::vector<int>& numbers) {
 }
 ```
 
-Test cases:
+### Step 4: test your program
+
+Replace the list in `main()` and run again.
 
 ```cpp
-{8, 12, 3, 19, 5} // 19
-{-8, -3, -12}    // -3
-{42}              // 42
-{5, 5, 5}        // 5
+{-8, -3, -12}  // expected: -3
+{42}           // expected: 42
+{5, 5, 5}      // expected: 5
+{-1, 0, 1}     // expected: 1
 ```
 
-## 2. Two Sum
+## Optional DSA stretch — Two Sum
+
+Do this only after Find Largest Element is clear.
+
+Problem:
 
 ```text
 Input:  numbers = [2, 7, 11, 15], target = 9
 Output: [0, 1]
 ```
 
-Reference implementation:
-
-```cpp
-#include <unordered_map>
-#include <utility>
-#include <vector>
-
-std::pair<int, int> twoSum(
-    const std::vector<int>& numbers,
-    int target
-) {
-    std::unordered_map<int, int> indexByNumber;
-
-    for (int index = 0; index < static_cast<int>(numbers.size()); ++index) {
-        int currentNumber = numbers[index];
-        int neededNumber = target - currentNumber;
-
-        if (indexByNumber.contains(neededNumber)) {
-            return {indexByNumber[neededNumber], index};
-        }
-
-        indexByNumber[currentNumber] = index;
-    }
-
-    return {-1, -1};
-}
-```
-
-Complexity:
+The key idea:
 
 ```text
-Time: O(n) average
-Space: O(n)
+For each current number:
+    needed = target - current number
+
+If needed was already seen:
+    return the earlier index and current index
+
+Otherwise:
+    remember the current number and its index
 ```
 
-Important:
+For `[2, 7, 11, 15]` and target `9`:
 
 ```text
-Check whether the complement exists before adding the current number.
-This prevents using the same array element twice.
+Read 2 → need 7 → 7 has not been seen → remember 2 at index 0
+Read 7 → need 2 → 2 was seen at index 0 → answer [0, 1]
 ```
 
-Test cases:
+This uses a hash map. It takes O(n) average time and O(n) extra space.
 
-```cpp
-{2, 7, 11, 15}, 9      // [0, 1]
-{3, 2, 4}, 6           // [1, 2]
-{3, 3}, 6              // [0, 1]
-{-1, -2, -3, -4}, -6   // [1, 3]
-```
+## Section 2 review
 
-## Optional DSA practice
+### Questions
 
-| Problem | Expected complexity |
-|---|---|
-| Count even numbers | O(n) time, O(1) space |
-| Find first target occurrence | O(n) time, O(1) space |
-| Running sum | O(n) time, O(n) output space |
-| Contains duplicate with hash set | O(n) average time, O(n) space |
+1. Why is direct array access O(1)?
+2. Why is scanning an array O(n)?
+3. Why is a nested loop often O(n²)?
+4. Why is `largest = 0` unsafe for a largest-value algorithm?
+5. What do “time complexity” and “space complexity” mean?
+6. What does the variable `largest` represent while the loop runs?
+
+### Review answers
+
+1. An array index directly identifies the memory location of the value.
+2. In the worst case, every one of the `n` values must be inspected.
+3. If each of two loops runs about `n` times, the total work is about `n × n`.
+4. A list containing only negative numbers would incorrectly return `0`.
+5. Time complexity describes work/runtime growth; space complexity describes additional memory growth.
+6. It is the largest value seen so far.
+
+### Interview explanation to practice aloud
+
+> I initialize `largest` with the first value so the algorithm works for negative numbers. I scan the remaining values once and update `largest` whenever I find a larger value. This is O(n) time and O(1) extra space.
 
 ---
 
-# Part 5 — C++ practice programs
+# 3. Project — C++ Sensor Log Analyzer Setup
 
-Complete these gradually; they are not all mandatory today.
+## 3.1 Project goal
 
-| Program | Skills practiced |
+Over the coming days, you will build a command-line application that reads a log file and produces useful summaries.
+
+Today’s version does only two things:
+
+1. Starts successfully.
+2. Accepts and prints an optional log-file path.
+
+This is intentionally small. A good project grows in small working steps.
+
+## 3.2 Why use Git and CMake?
+
+| Tool | Beginner explanation |
 |---|---|
-| Profile printer | Input/output, strings, variables |
-| Two-number calculator | Functions, arithmetic, division-by-zero validation |
-| Temperature converter | Functions and formulas |
-| Even/odd checker | Conditions and modulo |
-| Maximum of three numbers | Conditions and comparisons |
-| Sum from 1 to N | Loops and O(n) |
-| Multiplication table | Loops and output formatting |
-| Operation counter | Demonstrate O(n) versus O(n²) |
+| Git | Saves a history of changes, like checkpoints in a game |
+| CMake | Stores build instructions so the project can be built consistently |
+| `.gitignore` | Lists generated files that Git should not track |
 
----
+## 3.3 Check required tools
 
-# Part 6 — Project build: C++ Sensor Log Analyzer
+Run:
 
-## Target structure
-
-```text
-cpp-log-analyzer/
-├── CMakeLists.txt
-├── README.md
-├── .gitignore
-├── src/
-│   └── main.cpp
-├── include/
-├── tests/
-└── data/
+```bash
+g++ --version
+cmake --version
+git --version
 ```
 
-## Create the project
+Each command should print a version. If one says “command not found,” stop there and ask for help before continuing.
+
+## Core lab — initialize the project
+
+### Step 1: create folders and initialize Git
 
 ```bash
 cd /home/guru/Documents/ChatGPT/Roadmap2028
-mkdir -p cpp-log-analyzer/{src,include,tests,data}
+mkdir -p cpp-log-analyzer/src
+mkdir -p cpp-log-analyzer/include
+mkdir -p cpp-log-analyzer/tests
+mkdir -p cpp-log-analyzer/data
 cd cpp-log-analyzer
 git init
 ```
 
-## `CMakeLists.txt`
+The project should now look like this:
+
+```text
+cpp-log-analyzer/
+├── data/
+├── include/
+├── src/
+└── tests/
+```
+
+### Step 2: create `CMakeLists.txt`
+
+```bash
+nano CMakeLists.txt
+```
+
+Paste:
 
 ```cmake
 cmake_minimum_required(VERSION 3.20)
@@ -391,7 +639,25 @@ target_compile_options(log_analyzer PRIVATE
 )
 ```
 
-## `src/main.cpp`
+Meaning:
+
+| CMake instruction | Meaning |
+|---|---|
+| `cmake_minimum_required` | The minimum CMake version needed |
+| `project` | Sets project name, version, and language |
+| `CMAKE_CXX_STANDARD 20` | Use C++20 |
+| `add_executable` | Build a program named `log_analyzer` from `src/main.cpp` |
+| `target_compile_options` | Enable useful compiler warnings |
+
+Save with `Ctrl + O`, `Enter`, then `Ctrl + X`.
+
+### Step 3: create `src/main.cpp`
+
+```bash
+nano src/main.cpp
+```
+
+Paste:
 
 ```cpp
 #include <iostream>
@@ -413,13 +679,39 @@ int main(int argc, char* argv[]) {
     std::string filePath = argv[1];
 
     std::cout << "Input file: " << filePath << '\n';
-    std::cout << "File parsing will be added in Day 2.\n";
+    std::cout << "File parsing will be added on Day 2.\n";
 
     return 0;
 }
 ```
 
-## `.gitignore`
+New idea: `argc` and `argv` are command-line arguments.
+
+If you run:
+
+```bash
+./build/log_analyzer data/sample.log
+```
+
+then:
+
+```text
+argc is 2
+argv[0] is ./build/log_analyzer
+argv[1] is data/sample.log
+```
+
+The program checks `argc < 2` to see whether the user forgot to give a file path.
+
+Save and exit `nano`.
+
+### Step 4: create `.gitignore`
+
+```bash
+nano .gitignore
+```
+
+Paste:
 
 ```gitignore
 build/
@@ -428,11 +720,53 @@ compile_commands.json
 *.out
 ```
 
+`build/` is generated by CMake, so it should not be saved in Git.
+
+### Step 5: create a basic project README
+
+```bash
+nano README.md
+```
+
+Paste:
+
+````md
+# C++ Sensor Log Analyzer
+
+A command-line C++ application that will read, validate, analyze, and summarize sensor or system log files.
+
+## Current capabilities
+
+- Builds with CMake.
+- Accepts a log-file path through the command line.
+- Prints application and input-file information.
+
 ## Build and run
 
 ```bash
 cmake -S . -B build
 cmake --build build
+./build/log_analyzer data/sample.log
+```
+````
+
+### Step 6: configure, build, and run
+
+Configure the project:
+
+```bash
+cmake -S . -B build
+```
+
+Build the executable:
+
+```bash
+cmake --build build
+```
+
+Run without a file path:
+
+```bash
 ./build/log_analyzer
 ```
 
@@ -444,7 +778,7 @@ Version: 0.1.0
 Usage: ./log_analyzer <log-file-path>
 ```
 
-Run with a path:
+Run with a file path:
 
 ```bash
 ./build/log_analyzer data/sample.log
@@ -456,86 +790,87 @@ Expected output:
 Sensor Log Analyzer
 Version: 0.1.0
 Input file: data/sample.log
-File parsing will be added in Day 2.
+File parsing will be added on Day 2.
 ```
 
-## Create the first Git checkpoint
+The `sample.log` file does not need to exist yet because today’s program only prints the path; it does not open the file.
+
+### Step 7: make your first Git checkpoint
 
 ```bash
+git status
 git add .
 git commit -m "Initialize C++ log analyzer project"
 git log --oneline
 ```
 
----
+Expected final line will look similar to:
 
-# Part 7 — Interview questions
+```text
+abc1234 Initialize C++ log analyzer project
+```
 
-## What is Big-O notation?
+## Section 3 review
 
-Big-O describes how an algorithm’s time or memory usage grows as the input size grows. It focuses on the dominant growth rate rather than exact machine-specific runtime.
+### Questions
 
-## What is the difference between compilation and linking?
+1. Why do we use CMake?
+2. Why should `build/` be in `.gitignore`?
+3. What does `git init` do?
+4. What does `argc < 2` mean in this program?
+5. What does `argv[1]` contain when the user provides a path?
+6. What is the difference between `cmake -S . -B build` and `cmake --build build`?
 
-Compilation converts individual C++ source files into object files and checks syntax/types. Linking combines object files and libraries into the final executable.
+### Review answers
 
-## Why is finding the largest array element O(n)?
+1. CMake stores reproducible instructions for building the project.
+2. It contains generated files that can be recreated; Git should track source and documentation instead.
+3. It starts a new Git repository in the current folder.
+4. The user did not provide the required file-path argument.
+5. It contains the first user-provided command-line argument, such as `data/sample.log`.
+6. The first configures build files; the second compiles the executable.
 
-In the worst case, every element must be inspected before confirming which value is largest.
+### Project completion test
 
-## Why not initialize the maximum to zero?
-
-It fails when every value is negative. For example, `[-8, -3, -12]` would incorrectly return `0`.
-
-## Why is Two Sum with a hash map O(n)?
-
-Each element is processed once, and hash-map lookup/insertion is O(1) on average. Therefore, total average time is O(n).
-
----
-
-# Part 8 — Day 1 completion checklist
-
-## Mandatory
-
-- [ ] I understand source code → compiler → linker → executable.
-- [ ] I can explain O(1), O(n), O(log n), and O(n²).
-- [ ] I built and ran the CMake project.
-- [ ] I created the initial Git commit.
-- [ ] I solved Find Largest Element.
-- [ ] I solved or fully understood Two Sum.
-- [ ] I wrote Day 1 notes.
-- [ ] I can explain both DSA solutions aloud.
-
-## Optional
-
-- [ ] I completed Count Even Numbers.
-- [ ] I completed First Occurrence.
-- [ ] I completed Running Sum.
-- [ ] I completed Contains Duplicate.
-- [ ] I completed one C++ practice program.
-- [ ] I recorded a short demo of the CLI project.
+- [ ] `cmake -S . -B build` succeeds.
+- [ ] `cmake --build build` succeeds.
+- [ ] `./build/log_analyzer` prints usage instructions.
+- [ ] `./build/log_analyzer data/sample.log` prints the supplied path.
+- [ ] `git log --oneline` shows the initial commit.
 
 ---
 
-# Day 1 retrospective
+# Day 1 final checklist
 
-## What I learned
+## C++ language
 
-- 
+- [ ] I compiled and ran `cpp_basics.cpp`.
+- [ ] I understand `main`, variables, input/output, `if`, loops, and functions.
+- [ ] I completed the Section 1 review aloud.
 
-## DSA mistakes or confusing concepts
+## DSA
 
-- 
+- [ ] I understand array indexes and Big-O basics.
+- [ ] I solved Find Largest Element myself.
+- [ ] I tested negative, duplicate, and one-element inputs.
+- [ ] I can explain its O(n) time and O(1) space complexity aloud.
 
-## C++ or command-line errors I encountered
+## Project
 
-- 
+- [ ] I created and built the Log Analyzer project.
+- [ ] I ran it with and without a command-line path.
+- [ ] I made an initial Git commit.
 
-## Concepts to revise
+## Reflection
 
-- 
+Write short answers before starting Day 2:
 
-## What I will do differently tomorrow
+```text
+The most useful thing I learned today:
 
-- 
+The one concept I need to review:
+
+The error or bug I encountered:
+
+What I can now explain confidently:
 ```
