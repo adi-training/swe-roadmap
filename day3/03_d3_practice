@@ -1,0 +1,137 @@
+Yes. For Day 3, keep practice centered on multi-file C++, prefix sums, and parsing—not unrelated new patterns.
+
+## Core DSA questions
+
+1. Build Prefix Sum Array
+
+```text
+Input:  [3, 1, 4, 1, 5]
+Output: [0, 3, 4, 8, 9, 14]
+```
+
+2. Range Sum Query
+
+Using:
+
+```text
+Values: [3, 1, 4, 1, 5]
+```
+
+Return:
+
+```text
+Range [1, 3] → 6
+Range [0, 2] → 8
+Range [2, 4] → 10
+```
+
+Target: O(n) preprocessing, O(1) per query.
+
+3. Pivot Index
+
+Find an index where the sum of values to the left equals the sum of values to the right.
+
+```text
+Input:  [1, 7, 3, 6, 5, 6]
+Output: 3
+```
+
+At index `3`:
+
+```text
+Left sum:  1 + 7 + 3 = 11
+Right sum: 5 + 6 = 11
+```
+
+4. Left-and-Right Sum Difference
+
+For each index, calculate:
+
+```text
+absolute(left sum - right sum)
+```
+
+```text
+Input:  [10, 4, 8, 3]
+Output: [15, 1, 11, 22]
+```
+
+## Core C++ practice questions
+
+1. Multi-file calculator
+
+Create:
+
+```text
+include/calculator.hpp
+src/calculator.cpp
+src/main.cpp
+```
+
+Functions:
+
+```cpp
+int add(int first, int second);
+int subtract(int first, int second);
+```
+
+Expected:
+
+```text
+7 + 3 = 10
+7 - 3 = 4
+```
+
+2. Parse one CSV line
+
+Given:
+
+```text
+2026-09-20 10:00:01,INFO,Sensor started
+```
+
+Store it in a `LogEntry` struct and print:
+
+```text
+Timestamp: 2026-09-20 10:00:01
+Level: INFO
+Message: Sensor started
+```
+
+3. Validate CSV lines
+
+For each input, return valid or invalid:
+
+```text
+2026-09-20,INFO,Started     → valid
+2026-09-20,INFO,            → invalid
+2026-09-20,,Started         → invalid
+only one field               → invalid
+```
+
+## Project practice tasks
+
+1. Add a summary showing log-level counts:
+
+```text
+INFO: 2
+WARNING: 1
+ERROR: 1
+```
+
+2. Print only `ERROR` entries.
+
+3. Print line numbers for invalid rows.
+
+4. Add a second sample file containing:
+   - Valid rows
+   - Empty rows
+   - Missing fields
+   - Unknown log level such as `DEBUG`
+
+For Day 3, complete only these minimum items:
+
+- Prefix Sum Array
+- Range Sum Query
+- Parse one CSV line
+- Project CSV parser from the main README
