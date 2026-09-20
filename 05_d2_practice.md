@@ -1,4 +1,4 @@
-Yes. Use this as the Day 2 program-practice queue—do only the first three today.
+Use this as the Day 2 program-practice queue—do only the first three today.
 
 | Priority | Program | Skills | Expected outcome |
 |---:|---|---|---|
