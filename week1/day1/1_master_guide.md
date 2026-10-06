@@ -135,11 +135,11 @@ day01/
 
 ## 2.2 DSA Problems (Pointer Scanners)
 
-### Problem 1: LeetCode 27 — Remove Element
+### Problem 1: [LeetCode 27 — Remove Element](https://leetcode.com/problems/remove-element/)
 * **Goal:** Remove all occurrences of `val` in `nums` in-place. Return count of remaining elements $k$.
 * **Approach:** Two-pointer fast/slow write pointer technique ($O(N)$ time, $O(1)$ space).
 
-### Problem 2: LeetCode 26 — Remove Duplicates from Sorted Array
+### Problem 2: LeetCode 26 — [Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array)
 * **Goal:** Remove duplicate elements in-place from a sorted array.
 * **Approach:** Two-pointer read/write index technique ($O(N)$ time, $O(1)$ space).
 

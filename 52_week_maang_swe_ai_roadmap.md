@@ -1,13 +1,5 @@
 # 52-Week High-Level Roadmap: SWE & AI Engineering (MAANG Tier)
 
-## Executive Summary
-* **Target Audience:** 3rd Year Robotics & AI Student preparing for entry-level SWE & AI Roles at MAANG.
-* **Total Dedicated Time:** ~1,000 Hours (52 Weeks @ ~20 Hours/Week).
-* **Weekly Allocation:** Mon–Fri (2 hrs/day) | Sat–Sun (5.5 hrs/day).
-* **Execution Rule:** 20% Conceptual/Theory & 80% Hands-on Implementation.
-
----
-
 ## Language Strategy
 * **C++:** Primary language for Data Structures & Algorithms (DSA), low-level systems, memory safety, and high-performance ML inference engines (LibTorch / CUDA / ONNX Runtime).
 * **Python:** Primary language for Deep Learning, PyTorch architecture, Vector Databases, RAG pipelines, and rapid API prototyping.

@@ -1,12 +1,5 @@
 # Phase 1: Day-by-Day Micro-Schedule (Weeks 1 to 12)
 
-## Time Management Formula
-* **Weekday Budget (Mon–Fri):** 2 hrs/day (25m Theory | 1h 35m Hands-on Coding)
-* **Saturday Budget:** 5.5 hrs (1h Deep Architecture | 4h 30m Complex Build & Hard Problems)
-* **Sunday Budget:** 5.5 hrs (1h Review/Refactoring | 4h 30m Timed Sprint & Mock Assessment)
-
----
-
 ## Week 1: Python Production & Modern C++ STL Mastery
 
 * **Day 1 (Mon):**

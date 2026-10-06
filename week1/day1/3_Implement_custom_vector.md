@@ -1,4 +1,4 @@
-# Beginner's Guide: Building and Testing a Custom Vector
+# Build and Test a Custom Vector
 
 Welcome! A **Custom Vector** (or dynamic array) is one of the most fundamental data structures in computer science. If you have ever wondered how arrays in C++ (`std::vector`), Python lists, or Java `ArrayList` grow automatically when you add elements, this guide is for you.
 
