@@ -1,5 +1,15 @@
 # Phase 1: Day-by-Day Micro-Schedule (Weeks 1 to 12)
 
+## Week 0: Language Refresher  
+
+* **Day 1-3 :**
+  * *Cpp Refresher* Complete cpp_refresh_80_20. This is curated refresher to refresh 80% of important concepts in first 20% of time. Do not miss *Hands-on*. Do not refer answers or copy from internet.
+* **Day 4-5:**
+  * *Python Refresher* Complete python_refresh_80_20. Just like cpp, this is also curated refresher to refresh 80% of important concepts in first 20% of time. Again, do not miss *Hands-on*. Do not refer answers or copy from internet.
+* **Weekend**
+  * *Linux and Scripting Refresher* Complete linux_scripting_refresh_80_20. Do not miss this.
+
+
 ## Week 1: Python Production & Modern C++ STL Mastery
 
 * **Day 1 (Mon):**

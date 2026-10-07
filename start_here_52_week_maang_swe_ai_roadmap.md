@@ -9,6 +9,7 @@
 ## Phase Breakdown
 
 ```
+Phase 0 ()       : Refresh Cpp, Python and Shell scripting knowledge
 Phase 1 (W1-12)  : Language Mastery & Core DSA Foundation
 Phase 2 (W13-24) : Advanced DSA + ML Fundamentals from Scratch
 Phase 3 (W25-36) : Deep Learning, Transformers & Applied AI Systems
